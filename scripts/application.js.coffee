@@ -34,6 +34,12 @@ class Lab
 
     results
 
+  turnLoadOff: (loadIndex) ->
+    num = 0
+    while num < @length
+      @profile[num][loadIndex] = 0 
+      num++
+    num
 
   turnLoadOn: (loadIndex, startIndex, endIndex) ->
     console?.log("Turning #{loadIndex} from #{startIndex} to #{endIndex}")
@@ -88,6 +94,8 @@ jQuery ($) ->
     $froms    = $(this).find 'input.froms'
     loadIndex = parseInt $(this).find("#ldInd").val()
 
+    lab.turnLoadOff(loadIndex)
+
     for from, index in $froms
       lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
@@ -100,4 +108,7 @@ jQuery ($) ->
     $("#showme").html loadHTML
     false
 
+  $('body').on 'click', '.load .js-remove', (evnt) ->
+    $(this).closest('.load').remove()
+    evnt.preventDefault()
   
