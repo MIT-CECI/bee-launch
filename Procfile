@@ -1,0 +1,1 @@
+web: stasis -d $PORT
