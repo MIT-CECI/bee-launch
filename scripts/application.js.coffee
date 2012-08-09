@@ -72,7 +72,13 @@ class Lab
 jQuery ($) ->
   window.lab = new Lab(48)
 
-  ($ ".add-load").click (e) ->
+  ($ 'body').on 'click', '.js-add-load-row', ->
+    source = $("#single-load").html()
+    template = Handlebars.compile(source)
+    ($ ".load-table").append(template(times: [BEE.EMPTY_LOAD]))
+    false
+
+  ($ ".js-add-load").click (e) ->
     loadIndex = ($ @).data('load-index')
     console?.log("Adding #{loadIndex}")
     loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex))

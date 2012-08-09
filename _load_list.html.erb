@@ -1,12 +1,13 @@
 <script id="load-list" type="text/x-handlebars-template">
-
+<div id="load-modal">
 <h1 class="title">{{title}}</h1>
 
 <div class="description">
-  Select the schedule you want this load to be on. Remember that the experiment
-  will run for {{experimentLength}} hours.
+  Select the schedule you want this load to be on. Remember that the
+  experiment will run for {{experimentLength}} hours.
 </div>
 
+<form action='#' id='submit-loads'>
 <table class="load-table">
   <tr>
     <th>From</th>
@@ -16,4 +17,12 @@
 
   {{> single_load }}
 </table>
+
+<p>
+  <a href='#' class='js-add-load-row'>Add another time</a>
+</p>
+
+<p><input type='submit' name='Go'></input></p>
+</form>
+</div>
 </script>
