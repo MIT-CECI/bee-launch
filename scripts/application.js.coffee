@@ -83,7 +83,7 @@ jQuery ($) ->
     ($ ".load-table").append(template(times: [BEE.EMPTY_LOAD]))
     false
 
-  ($ 'body').on 'submit', '#submit-loads', ->
+  ($ 'body').on 'submit', '#submit-loads', (evnt) ->
     $tos      = $(this).find 'input.tos'
     $froms    = $(this).find 'input.froms'
     loadIndex = parseInt $(this).find("#ldInd").val()
@@ -91,7 +91,8 @@ jQuery ($) ->
     for from, index in $froms
       lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
-    false
+    $("#showme").html("Loads added!")
+    evnt.preventDefault()
 
   ($ ".js-add-load").click (e) ->
     loadIndex = ($ @).data('load-index')
