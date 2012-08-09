@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BEE Lab • Launch</title>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href='styles/application.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+  <h1>Please select the load profile</h1>
+
+<div class="description">
+  For each load, you can choose when it will be turned on. Add a load by clicking here.
+</div>
+
+<script id="load-list" type="text/x-handlebars-template">
+<div id="load-modal">
+<h1 class="title">{{title}}</h1>
+
+<div class="description">
+  Select the schedule you want this load to be on. Remember that the
+  experiment will run for {{experimentLength}} hours.
+</div>
+
+<form action='#' id='submit-loads'>
+
+<input type="hidden" value="{{loadIndex}}" name="loadIndex" id="ldInd"></input>
+
+<table class="load-table">
+  <tr>
+    <th>From</th>
+    <th>To</th>
+    <th>&nbsp;</th>
+  </tr>
+
+  {{> single_load }}
+</table>
+
+<p>
+  <a href='#' class='js-add-load-row'>Add another time</a>
+</p>
+
+<p><input type='submit' name='Go'></input></p>
+</form>
+</div>
+</script>
+<script id="single-load" type="text/x-handlebars-template">
+{{#each times}}
+<tr class="load">
+  <td>
+    <input type="text" name="from[]" value="{{from}}" size="5" class='froms'>
+    </input>
+  </td>
+  <td>
+    <input type="text" name="to[]" value="{{to}}" size="5" class='tos'>
+    </input>
+  </td>
+  <td>
+    <a class="js-remove" href='#'>(remove)</a>
+  </td>
+</tr>
+{{/each}}
+</script>
+<p><a class='js-add-load' href='#' data-load-index='0'>Add 100 wattz</a></p>
+<p><a class='js-add-load' href='#' data-load-index='1'>Add 75 wattz</a></p>
+<p><a class='js-add-load' href='#' data-load-index='2'>Add 50 wattz</a></p>
+<p><a class='js-add-load' href='#' data-load-index='3'>Add 25 wattz</a></p>
+
+<div id="showme"></div>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js"></script>
+  <script type="text/javascript" src="scripts/vendor/handlebars.js"></script>
+  <script type="text/javascript" src="scripts/application.js"></script>
+</body>
+</html>
