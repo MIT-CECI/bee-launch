@@ -16,6 +16,7 @@ class Lab
     source = $("#load-list").html()
     @template = Handlebars.compile(source)
     @template(
+      loadIndex: index
       title: "Adding #{@_loadMap[index]} wattz"
       experimentLength: @length
       times: @findLoadSchedule(+index)
@@ -24,7 +25,6 @@ class Lab
   findLoadSchedule: (loadIndex) ->
     startIndex = @_findFirst(+loadIndex, 0)
     results = [ ]
-    console?.log("Starting at #{startIndex}")
 
     while startIndex < @length
       to = @_findUntil(loadIndex, startIndex)
@@ -32,8 +32,14 @@ class Lab
       results.push time
       startIndex = @_findFirst(+loadIndex, to + 1)
 
-    console?.log("The schedule is", results)
     results
+
+
+  turnLoadOn: (loadIndex, startIndex, endIndex) ->
+    console?.log("Turning #{loadIndex} from #{startIndex} to #{endIndex}")
+    while startIndex < endIndex
+      @profile[startIndex][loadIndex] = parseInt @_loadMap[loadIndex]
+      startIndex++
 
   _findFirst: (loadIndex, startIndex) ->
     while (startIndex < @length and @profile[startIndex][loadIndex] == 0)
@@ -41,7 +47,6 @@ class Lab
     startIndex
 
   _findUntil: (loadIndex, startIndex) ->
-    console?.log("Find until <#{loadIndex}, #{startIndex}>")
     to = startIndex
     while (to < @length and @profile[to][loadIndex] != 0 )
       to++
@@ -78,9 +83,18 @@ jQuery ($) ->
     ($ ".load-table").append(template(times: [BEE.EMPTY_LOAD]))
     false
 
+  ($ 'body').on 'submit', '#submit-loads', ->
+    $tos      = $(this).find 'input.tos'
+    $froms    = $(this).find 'input.froms'
+    loadIndex = parseInt $(this).find("#ldInd").val()
+
+    for from, index in $froms
+      lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
+
+    false
+
   ($ ".js-add-load").click (e) ->
     loadIndex = ($ @).data('load-index')
-    console?.log("Adding #{loadIndex}")
     loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex))
     $("#showme").html loadHTML
     false
