@@ -1,1 +1,1 @@
-web: stasis -d $PORT
+web: bundle exec rackup -p $PORT
