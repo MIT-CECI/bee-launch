@@ -1,0 +1,15 @@
+<script id="single-load" type="text/x-handlebars-template">
+{{#each times}}
+<tr class="load">
+  <td>
+    <input type="text" name="from[]" value="{{from}}" size="5"></input>
+  </td>
+  <td>
+    <input type="text" name="to[]" value="{{to}}" size="5"></input>
+  </td>
+  <td>
+    <span class="remove">(remove)</span>
+  </td>
+</tr>
+{{/each}}
+</script>

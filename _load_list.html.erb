@@ -1,0 +1,19 @@
+<script id="load-list" type="text/x-handlebars-template">
+
+<h1 class="title">{{title}}</h1>
+
+<div class="description">
+  Select the schedule you want this load to be on. Remember that the experiment
+  will run for {{experimentLength}} hours.
+</div>
+
+<table class="load-table">
+  <tr>
+    <th>From</th>
+    <th>To</th>
+    <th>&nbsp;</th>
+  </tr>
+
+  {{> single_load }}
+</table>
+</script>
