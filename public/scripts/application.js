@@ -1,5 +1,5 @@
 (function() {
-  var BEE, Lab;
+  var BEE, Lab, app;
 
   BEE = {
     VERSION: '1.0.beta',
@@ -116,18 +116,37 @@
 
   })();
 
-  jQuery(function($) {
-    window.lab = new Lab(48);
-    ($('body')).on('click', '.js-add-load-row', function() {
+  app = {
+    setup: function() {
+      window.lab = new Lab(48);
+      return $("#js-load-schedule").overlay({
+        color: '#000',
+        loadSpeed: 200,
+        opacity: 0.3
+      });
+    },
+    addLoadRow: function(event) {
       var source, template;
       source = $("#single-load").html();
       template = Handlebars.compile(source);
       ($(".load-table")).append(template({
         times: [BEE.EMPTY_LOAD]
       }));
-      return false;
-    });
-    ($('body')).on('submit', '#submit-loads', function(evnt) {
+      return event.preventDefault();
+    },
+    loadSchedule: function(event) {
+      var loadHTML, loadIndex;
+      loadIndex = $(this).data('load-index');
+      loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex));
+      $("#js-load-schedule").html(loadHTML);
+      $("#js-load-schedule").overlay().load();
+      return event.preventDefault();
+    },
+    removeLoadTime: function(event) {
+      $(this).closest('.load').remove();
+      return event.preventDefault();
+    },
+    submitLoads: function(evnt) {
       var $froms, $tos, from, index, loadIndex, _i, _len;
       $tos = $(this).find('input.tos');
       $froms = $(this).find('input.froms');
@@ -137,20 +156,17 @@
         from = $froms[index];
         lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
       }
-      $("#showme").html("Loads added!");
+      $("#js-load-schedule").html("Loads added!");
       return evnt.preventDefault();
-    });
-    ($(".js-add-load")).click(function(e) {
-      var loadHTML, loadIndex;
-      loadIndex = ($(this)).data('load-index');
-      loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex));
-      $("#showme").html(loadHTML);
-      return false;
-    });
-    return $('body').on('click', '.load .js-remove', function(evnt) {
-      $(this).closest('.load').remove();
-      return evnt.preventDefault();
-    });
+    }
+  };
+
+  jQuery(function($) {
+    app.setup();
+    $('body').on('click', '.js-add-load-row', app.addLoadRow);
+    $('body').on('click', '.js-add-load', app.loadSchedule);
+    $('body').on('click', '.load .js-remove', app.removeLoadTime);
+    return $('body').on('submit', '#submit-loads', app.submitLoads);
   });
 
 }).call(this);

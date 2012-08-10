@@ -80,35 +80,50 @@ class Lab
 
 # End of Lab Class
 
-jQuery ($) ->
-  window.lab = new Lab(48)
+app = 
+  setup: ->
+    window.lab = new Lab(48)
 
-  ($ 'body').on 'click', '.js-add-load-row', ->
+    $("#js-load-schedule").overlay
+      color: '#000'
+      loadSpeed: 200
+      opacity: 0.3
+
+  addLoadRow: (event) ->
     source = $("#single-load").html()
     template = Handlebars.compile(source)
     ($ ".load-table").append(template(times: [BEE.EMPTY_LOAD]))
-    false
+    event.preventDefault()
 
-  ($ 'body').on 'submit', '#submit-loads', (evnt) ->
+  loadSchedule: (event) ->
+    loadIndex = $(this).data('load-index')
+    loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex))
+    $("#js-load-schedule").html(loadHTML)
+    $("#js-load-schedule").overlay().load()
+    event.preventDefault()
+
+  removeLoadTime: (event) ->
+    $(this).closest('.load').remove()
+    event.preventDefault()
+
+  submitLoads: (evnt) ->
     $tos      = $(this).find 'input.tos'
     $froms    = $(this).find 'input.froms'
     loadIndex = parseInt $(this).find("#ldInd").val()
 
     lab.turnLoadOff(loadIndex)
-
     for from, index in $froms
       lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
-    $("#showme").html("Loads added!")
+    $("#js-load-schedule").html("Loads added!")
     evnt.preventDefault()
 
-  ($ ".js-add-load").click (e) ->
-    loadIndex = ($ @).data('load-index')
-    loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex))
-    $("#showme").html loadHTML
-    false
+jQuery ($) ->
+  app.setup()
 
-  $('body').on 'click', '.load .js-remove', (evnt) ->
-    $(this).closest('.load').remove()
-    evnt.preventDefault()
-  
+  $('body').on 'click', '.js-add-load-row', app.addLoadRow
+  $('body').on 'click', '.js-add-load',     app.loadSchedule
+  $('body').on 'click', '.load .js-remove', app.removeLoadTime
+
+  $('body').on 'submit', '#submit-loads', app.submitLoads
+
