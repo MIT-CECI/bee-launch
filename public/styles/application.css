@@ -1,0 +1,22 @@
+body {
+  background: #f3efe5;
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200; }
+
+nav ul {
+  padding: 0; }
+  nav ul li {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+    margin: 0px 5px; }
+
+#js-load-schedule {
+  display: none;
+  background: white;
+  padding: 20px;
+  border: 5px solid rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: compact(1px 1px 5px black, false, false, false, false, false, false, false, false);
+  box-shadow: compact(1px 1px 5px black, false, false, false, false, false, false, false, false);
+  -webkit-border-radius: 5px;
+  border-radius: 5px; }

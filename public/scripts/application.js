@@ -120,9 +120,12 @@
     setup: function() {
       window.lab = new Lab(48);
       return $("#js-load-schedule").overlay({
-        color: '#000',
-        loadSpeed: 200,
-        opacity: 0.3
+        fixed: false,
+        mask: {
+          color: '#000',
+          loadSpeed: 200,
+          opacity: 0.2
+        }
       });
     },
     addLoadRow: function(event) {
@@ -156,7 +159,7 @@
         from = $froms[index];
         lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
       }
-      $("#js-load-schedule").html("Loads added!");
+      $("#js-load-schedule").overlay().close();
       return evnt.preventDefault();
     }
   };
