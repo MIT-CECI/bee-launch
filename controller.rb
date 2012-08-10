@@ -1,4 +1,4 @@
 ignore /\.git/
 ignore /\/_.*/
-ignore /(Procfile|Gemfile|README*|rackup*)/
+ignore /(Procfile|Gemfile|README*|config\.ru)/
 layout 'layout.html.erb'
