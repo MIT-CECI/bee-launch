@@ -11,6 +11,10 @@ nav ul {
     display: inline-block;
     margin: 0px 5px; }
 
+#chart-container {
+  width: 95%;
+  margin: 0 auto; }
+
 #js-load-schedule {
   display: none;
   background: white;

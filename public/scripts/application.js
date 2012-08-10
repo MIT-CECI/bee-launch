@@ -19,6 +19,22 @@
 
     Lab.prototype.length = Lab.length;
 
+    Lab.prototype.getSerieValues = function(loadName) {
+      var hourInterval, loadIndex, _i, _len, _ref, _results;
+      loadIndex = this._loadMap[loadName];
+      _ref = this.profile;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        hourInterval = _ref[_i];
+        _results.push(hourInterval[loadIndex]);
+      }
+      return _results;
+    };
+
+    Lab.prototype.getSeries = function() {
+      return ['100', '75', '50', '25'];
+    };
+
     Lab.prototype.displayLoadDialog = function(index) {
       var source;
       source = $("#load-list").html();

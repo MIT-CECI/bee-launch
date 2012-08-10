@@ -12,6 +12,13 @@ class Lab
 
   length: @length
 
+  getSerieValues: (loadName) ->
+    loadIndex = @_loadMap[loadName]
+    hourInterval[loadIndex] for hourInterval in @profile
+
+  getSeries: ->
+    ['100', '75', '50', '25']
+
   displayLoadDialog: (index) ->
     source = $("#load-list").html()
     @template = Handlebars.compile(source)
