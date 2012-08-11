@@ -3,6 +3,14 @@
 
   window.LoadProfile = LoadProfile = (function() {
 
+    LoadProfile.prototype.updateChart = function(seriesIndex) {
+      var newData;
+      newData = lab.getSerieValues({
+        'index': seriesIndex
+      });
+      return this.chart.series[seriesIndex].setData(newData, true);
+    };
+
     function LoadProfile() {
       var serie, _series;
       _series = (function() {
@@ -13,7 +21,9 @@
           serie = _ref[_i];
           _results.push({
             name: "" + serie + " Wattz",
-            data: lab.getSerieValues(serie)
+            data: lab.getSerieValues({
+              'name': serie
+            })
           });
         }
         return _results;

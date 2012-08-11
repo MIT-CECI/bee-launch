@@ -19,9 +19,13 @@
 
     Lab.prototype.length = Lab.length;
 
-    Lab.prototype.getSerieValues = function(loadName) {
+    Lab.prototype.getSerieValues = function(serieInfo) {
       var hourInterval, loadIndex, _i, _len, _ref, _results;
-      loadIndex = this._loadMap[loadName];
+      if (serieInfo['name']) {
+        loadIndex = this._loadMap[serieInfo['name']];
+      } else {
+        loadIndex = serieInfo['index'];
+      }
       _ref = this.profile;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -133,8 +137,15 @@
   })();
 
   app = {
+    drawGraph: function() {
+      if (window.chart != null) {
+        window.chart = null;
+      }
+      return window.chart = new LoadProfile();
+    },
     setup: function() {
       window.lab = new Lab(48);
+      this.drawGraph();
       return $("#js-load-schedule").overlay({
         fixed: false,
         mask: {
@@ -176,6 +187,7 @@
         lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
       }
       $("#js-load-schedule").overlay().close();
+      window.chart.updateChart(loadIndex);
       return evnt.preventDefault();
     }
   };

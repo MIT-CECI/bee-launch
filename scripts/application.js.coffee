@@ -12,8 +12,11 @@ class Lab
 
   length: @length
 
-  getSerieValues: (loadName) ->
-    loadIndex = @_loadMap[loadName]
+  getSerieValues: (serieInfo) ->
+    if serieInfo['name']
+      loadIndex = @_loadMap[serieInfo['name']]
+    else
+      loadIndex = serieInfo['index']
     hourInterval[loadIndex] for hourInterval in @profile
 
   getSeries: ->
@@ -87,10 +90,14 @@ class Lab
 
 # End of Lab Class
 
-app = 
+app =
+  drawGraph: ->
+    window.chart = null if window.chart?
+    window.chart = new LoadProfile()
+
   setup: ->
     window.lab = new Lab(48)
-
+    @drawGraph()
     $("#js-load-schedule").overlay
       fixed: false
       mask:
@@ -125,6 +132,7 @@ app =
       lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
     $("#js-load-schedule").overlay().close()
+    window.chart.updateChart(loadIndex)
     evnt.preventDefault()
 
 jQuery ($) ->

@@ -1,9 +1,14 @@
 window.LoadProfile = class LoadProfile
+
+  updateChart: (seriesIndex) ->
+    newData = lab.getSerieValues('index': seriesIndex)
+    @chart.series[seriesIndex].setData(newData, true)
+
   constructor: ->
     _series = (
       {
         name: "#{serie} Wattz"
-        data: lab.getSerieValues(serie)
+        data: lab.getSerieValues('name': serie)
       } for serie in lab.getSeries()
     )
 
