@@ -3,8 +3,15 @@
 <h1 class="title">{{title}}</h1>
 
 <div class="description">
-  Select the schedule you want this load to be on. Remember that the
-  experiment will run for <strong>{{experimentLength}} hours</strong>.
+  <p>
+    Select the schedule you want this load to be on. Remember that the
+    experiment will run for <strong>{{experimentLength}} hours</strong>.
+  </p>
+
+  <p>
+    The loads <strong>can only be set to "O'clock" hours</strong>, so 3:30 will be parsed as
+    3:00 in the profile.
+  </p>
 </div>
 
 <form action='#' id='submit-loads'>
