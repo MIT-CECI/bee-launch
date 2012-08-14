@@ -1,5 +1,5 @@
 (function() {
-  var BEE, Lab, app;
+  var BEE, Lab, app, outOfBounds;
 
   BEE = {
     VERSION: '1.0.beta',
@@ -136,6 +136,10 @@
 
   })();
 
+  outOfBounds = function(from, to) {
+    return parseInt(from) > app.lab.length || parseInt(from) < 0 || parseInt(to) > app.lab.length || parseInt(to) < 0;
+  };
+
   app = {
     setup: function() {
       this.lab = new Lab(48);
@@ -172,17 +176,28 @@
       return event.preventDefault();
     },
     submitLoads: function(evnt) {
-      var $froms, $tos, from, index, loadIndex, _i, _len;
+      var $froms, $tos, error, from, index, loadIndex, _i, _len;
       $tos = $(this).find('input.tos');
       $froms = $(this).find('input.froms');
       loadIndex = parseInt($(this).find("#ldInd").val());
       app.lab.turnLoadOff(loadIndex);
+      error = false;
       for (index = _i = 0, _len = $froms.length; _i < _len; index = ++_i) {
         from = $froms[index];
-        app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
+        if (outOfBounds(parseInt(from.value), parseInt($tos[index].value))) {
+          $(from).closest('.load').addClass('error-row').find('td').addClass('error-row');
+          error = true;
+        } else {
+          $(from).closest('.load').removeClass('error-row').find('td').removeClass('error-row');
+          app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
+        }
       }
-      $("#js-load-schedule").overlay().close();
-      window.chart.updateChart(loadIndex);
+      if (error === true) {
+        $("#load-modal").append("<div class='error'>Some loads are exceeding the lab's maximum length.</div>");
+      } else {
+        $("#js-load-schedule").overlay().close();
+        window.chart.updateChart(loadIndex);
+      }
       return evnt.preventDefault();
     },
     _drawGraph: function() {

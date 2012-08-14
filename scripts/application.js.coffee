@@ -90,6 +90,13 @@ class Lab
 
 # End of Lab Class
 
+outOfBounds = (from, to) ->
+  parseInt(from) > app.lab.length or
+  parseInt(from) < 0 or
+
+  parseInt(to)   > app.lab.length or
+  parseInt(to)   < 0
+  
 app =
   setup: ->
     @lab = new Lab(48)
@@ -125,11 +132,23 @@ app =
     loadIndex = parseInt $(this).find("#ldInd").val()
 
     app.lab.turnLoadOff(loadIndex)
-    for from, index in $froms
-      app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
-    $("#js-load-schedule").overlay().close()
-    window.chart.updateChart(loadIndex)
+    error = false
+
+    for from, index in $froms
+      if outOfBounds(parseInt(from.value), parseInt($tos[index].value))
+        $(from).closest('.load').addClass('error-row').find('td').addClass('error-row')
+        error = true
+      else
+        $(from).closest('.load').removeClass('error-row').find('td').removeClass('error-row')
+        app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
+    
+    if error == true
+      $("#load-modal").append("<div class='error'>Some loads are exceeding the lab's maximum length.</div>")
+    else
+      $("#js-load-schedule").overlay().close()
+      window.chart.updateChart(loadIndex)
+
     evnt.preventDefault()
 
   _drawGraph: ->

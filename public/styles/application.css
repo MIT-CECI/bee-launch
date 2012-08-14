@@ -15,6 +15,11 @@ nav ul {
   width: 95%;
   margin: 0 auto; }
 
+.load-table {
+  margin-top: 15px; }
+  .load-table th, .load-table td {
+    text-align: center; }
+
 #js-load-schedule {
   display: none;
   background: white;
@@ -24,3 +29,13 @@ nav ul {
   box-shadow: compact(1px 1px 5px black, false, false, false, false, false, false, false, false);
   -webkit-border-radius: 5px;
   border-radius: 5px; }
+  #js-load-schedule .error {
+    background: rgba(255, 0, 0, 0.5);
+    color: #FFF;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    text-shadow: 1px 1px 3px #000;
+    padding: 10px; }
+  #js-load-schedule .error-row {
+    background: rgba(255, 0, 0, 0.5); }
