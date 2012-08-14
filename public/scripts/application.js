@@ -186,14 +186,14 @@
         from = $froms[index];
         if (outOfBounds(parseInt(from.value), parseInt($tos[index].value))) {
           $(from).closest('.load').addClass('error-row').find('td').addClass('error-row');
-          error = true;
+          error = "#invalid-length";
         } else {
           $(from).closest('.load').removeClass('error-row').find('td').removeClass('error-row');
           app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
         }
       }
-      if (error === true) {
-        $("#load-modal .error").show();
+      if (error !== "") {
+        $("#load-modal .error" + error).show();
       } else {
         $("#js-load-schedule").overlay().close();
         window.chart.updateChart(loadIndex);
