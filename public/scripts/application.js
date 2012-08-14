@@ -137,15 +137,10 @@
   })();
 
   app = {
-    drawGraph: function() {
-      if (window.chart != null) {
-        window.chart = null;
-      }
-      return window.chart = new LoadProfile();
-    },
     setup: function() {
-      window.lab = new Lab(48);
-      this.drawGraph();
+      this.lab = new Lab(48);
+      this._drawGraph();
+      this._setupListeners();
       return $("#js-load-schedule").overlay({
         fixed: false,
         mask: {
@@ -167,7 +162,7 @@
     loadSchedule: function(event) {
       var loadHTML, loadIndex;
       loadIndex = $(this).data('load-index');
-      loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex));
+      loadHTML = app.lab.displayLoadDialog(parseInt(loadIndex));
       $("#js-load-schedule").html(loadHTML);
       $("#js-load-schedule").overlay().load();
       return event.preventDefault();
@@ -181,23 +176,31 @@
       $tos = $(this).find('input.tos');
       $froms = $(this).find('input.froms');
       loadIndex = parseInt($(this).find("#ldInd").val());
-      lab.turnLoadOff(loadIndex);
+      app.lab.turnLoadOff(loadIndex);
       for (index = _i = 0, _len = $froms.length; _i < _len; index = ++_i) {
         from = $froms[index];
-        lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
+        app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
       }
       $("#js-load-schedule").overlay().close();
       window.chart.updateChart(loadIndex);
       return evnt.preventDefault();
+    },
+    _drawGraph: function() {
+      if (window.chart != null) {
+        window.chart = null;
+      }
+      return window.chart = new LoadProfile(this.lab);
+    },
+    _setupListeners: function() {
+      $('body').on('click', '.js-add-load-row', this.addLoadRow);
+      $('body').on('click', '.js-add-load', this.loadSchedule);
+      $('body').on('click', '.load .js-remove', this.removeLoadTime);
+      return $('body').on('submit', '#submit-loads', this.submitLoads);
     }
   };
 
   jQuery(function($) {
-    app.setup();
-    $('body').on('click', '.js-add-load-row', app.addLoadRow);
-    $('body').on('click', '.js-add-load', app.loadSchedule);
-    $('body').on('click', '.load .js-remove', app.removeLoadTime);
-    return $('body').on('submit', '#submit-loads', app.submitLoads);
+    return app.setup();
   });
 
 }).call(this);

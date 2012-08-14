@@ -5,30 +5,14 @@
 
     LoadProfile.prototype.updateChart = function(seriesIndex) {
       var newData;
-      newData = lab.getSerieValues({
+      newData = this.lab.getSerieValues({
         'index': seriesIndex
       });
       return this.chart.series[seriesIndex].setData(newData, true);
     };
 
-    function LoadProfile() {
-      var serie, _series;
-      _series = (function() {
-        var _i, _len, _ref, _results;
-        _ref = lab.getSeries();
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          serie = _ref[_i];
-          _results.push({
-            name: "" + serie + " Wattz",
-            data: lab.getSerieValues({
-              'name': serie
-            })
-          });
-        }
-        return _results;
-      })();
-      this.chart = new Highcharts.Chart({
+    LoadProfile.prototype.buildGraph = function() {
+      return this.chart = new Highcharts.Chart({
         chart: {
           renderTo: 'chart-container',
           type: 'column'
@@ -65,8 +49,32 @@
             }
           }
         },
-        series: _series
+        series: this._getSeries()
       });
+    };
+
+    LoadProfile.prototype._getSeries = function() {
+      var serie, _series;
+      return _series = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.lab.getSeries();
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          serie = _ref[_i];
+          _results.push({
+            name: "" + serie + " Wattz",
+            data: this.lab.getSerieValues({
+              'name': serie
+            })
+          });
+        }
+        return _results;
+      }).call(this);
+    };
+
+    function LoadProfile(lab) {
+      this.lab = lab;
+      this.buildGraph();
     }
 
     return LoadProfile;
