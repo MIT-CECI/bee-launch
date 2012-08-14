@@ -193,7 +193,7 @@
         }
       }
       if (error !== "") {
-        $("#load-modal .error" + error).show();
+        $("#load-modal .error").show();
       } else {
         $("#js-load-schedule").overlay().close();
         window.chart.updateChart(loadIndex);

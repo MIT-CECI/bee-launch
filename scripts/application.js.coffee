@@ -144,7 +144,7 @@ app =
         app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
     if error != ""
-      $("#load-modal .error#{error}").show()
+      $("#load-modal .error").show()
     else
       $("#js-load-schedule").overlay().close()
       window.chart.updateChart(loadIndex)
