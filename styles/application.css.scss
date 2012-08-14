@@ -42,13 +42,14 @@ nav ul {
   @include border-radius(5px);
 
   .error{
-    background: $error-bg-color;
     color: #FFF;
     width: 60%;
     margin: 0 auto;
-    text-align: center;
-    text-shadow: 1px 1px 3px #000;
+    display: none;
     padding: 10px;
+    text-align: center;
+    background: $error-bg-color;
+    text-shadow: 1px 1px 3px #000;
   }
 
   .error-row{

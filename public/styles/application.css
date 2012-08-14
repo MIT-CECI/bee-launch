@@ -30,12 +30,13 @@ nav ul {
   -webkit-border-radius: 5px;
   border-radius: 5px; }
   #js-load-schedule .error {
-    background: rgba(255, 0, 0, 0.5);
     color: #FFF;
     width: 60%;
     margin: 0 auto;
+    display: none;
+    padding: 10px;
     text-align: center;
-    text-shadow: 1px 1px 3px #000;
-    padding: 10px; }
+    background: rgba(255, 0, 0, 0.5);
+    text-shadow: 1px 1px 3px #000; }
   #js-load-schedule .error-row {
     background: rgba(255, 0, 0, 0.5); }

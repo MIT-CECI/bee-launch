@@ -193,7 +193,7 @@
         }
       }
       if (error === true) {
-        $("#load-modal").append("<div class='error'>Some loads are exceeding the lab's maximum length.</div>");
+        $("#load-modal .error").show();
       } else {
         $("#js-load-schedule").overlay().close();
         window.chart.updateChart(loadIndex);
