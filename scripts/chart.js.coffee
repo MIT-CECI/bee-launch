@@ -13,7 +13,16 @@ window.LoadProfile = class LoadProfile
         text: 'Load Profiles'
       tooltip:
         formatter: ->
-          "<b>#{@x}:00 - #{@x + 1}:00</b> <br/> #{@series.name}: #{@y}"
+          total = 0
+          text  = "<b>#{@x}:00 - #{@x + 1}:00</b> <br /> -- <br />"
+
+          for serie in @series.chart.series
+            text  += "#{serie.name} <br />" if serie.yData[@x] > 0
+            total += serie.yData[@x]
+
+          text += " -- <br />"
+          text += "<b> Total: #{total} wattz </b>"
+          text
       xAxis:
         title:
           text: 'Test Chamber Hours'
