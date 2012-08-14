@@ -91,13 +91,10 @@ class Lab
 # End of Lab Class
 
 app =
-  drawGraph: ->
-    window.chart = null if window.chart?
-    window.chart = new LoadProfile()
-
   setup: ->
-    window.lab = new Lab(48)
-    @drawGraph()
+    @lab = new Lab(48)
+    @_drawGraph()
+    @_setupListeners()
     $("#js-load-schedule").overlay
       fixed: false
       mask:
@@ -113,7 +110,7 @@ app =
 
   loadSchedule: (event) ->
     loadIndex = $(this).data('load-index')
-    loadHTML = window.lab.displayLoadDialog(parseInt(loadIndex))
+    loadHTML = app.lab.displayLoadDialog(parseInt(loadIndex))
     $("#js-load-schedule").html(loadHTML)
     $("#js-load-schedule").overlay().load()
     event.preventDefault()
@@ -127,20 +124,27 @@ app =
     $froms    = $(this).find 'input.froms'
     loadIndex = parseInt $(this).find("#ldInd").val()
 
-    lab.turnLoadOff(loadIndex)
+    app.lab.turnLoadOff(loadIndex)
     for from, index in $froms
-      lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
+      app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
 
     $("#js-load-schedule").overlay().close()
     window.chart.updateChart(loadIndex)
     evnt.preventDefault()
 
+  _drawGraph: ->
+    window.chart = null if window.chart?
+    window.chart = new LoadProfile(@lab)
+
+  _setupListeners: ->
+    $('body').on 'click', '.js-add-load-row', @addLoadRow
+    $('body').on 'click', '.js-add-load',     @loadSchedule
+    $('body').on 'click', '.load .js-remove', @removeLoadTime
+
+    $('body').on 'submit', '#submit-loads', @submitLoads
+
+
 jQuery ($) ->
   app.setup()
 
-  $('body').on 'click', '.js-add-load-row', app.addLoadRow
-  $('body').on 'click', '.js-add-load',     app.loadSchedule
-  $('body').on 'click', '.load .js-remove', app.removeLoadTime
-
-  $('body').on 'submit', '#submit-loads', app.submitLoads
 

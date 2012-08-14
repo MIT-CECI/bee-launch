@@ -1,17 +1,10 @@
 window.LoadProfile = class LoadProfile
 
   updateChart: (seriesIndex) ->
-    newData = lab.getSerieValues('index': seriesIndex)
+    newData = @lab.getSerieValues('index': seriesIndex)
     @chart.series[seriesIndex].setData(newData, true)
 
-  constructor: ->
-    _series = (
-      {
-        name: "#{serie} Wattz"
-        data: lab.getSerieValues('name': serie)
-      } for serie in lab.getSeries()
-    )
-
+  buildGraph: ->
     @chart = new Highcharts.Chart
       chart:
         renderTo: 'chart-container'
@@ -37,5 +30,17 @@ window.LoadProfile = class LoadProfile
           stacking: 'normal'
           dataLabels:
             enabled: false
-      series: _series
-      
+      series: @_getSeries()
+
+
+  _getSeries: ->
+    _series = (
+      {
+        name: "#{serie} Wattz"
+        data: @lab.getSerieValues('name': serie)
+      } for serie in @lab.getSeries()
+    )
+
+  constructor: (lab) ->
+    @lab = lab
+    @buildGraph()
