@@ -47,7 +47,7 @@ class Lab
   turnLoadOff: (loadIndex) ->
     num = 0
     while num < @length
-      @profile[num][loadIndex] = 0 
+      @profile[num][loadIndex] = 0
       num++
     num
 
@@ -96,7 +96,7 @@ outOfBounds = (from, to) ->
 
   parseInt(to)   > app.lab.length or
   parseInt(to)   < 0
-  
+
 app =
   setup: ->
     @lab = new Lab(48)
