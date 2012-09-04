@@ -53,6 +53,7 @@
         },
         plotOptions: {
           column: {
+            border: 0,
             borderWidth: 0,
             pointPadding: 0,
             groupPadding: 0,
@@ -75,7 +76,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           serie = _ref[_i];
           _results.push({
-            name: "" + serie + " Wattz",
+            name: serie,
             data: this.lab.getSerieValues({
               'name': serie
             })

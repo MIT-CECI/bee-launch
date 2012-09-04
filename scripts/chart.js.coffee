@@ -33,6 +33,7 @@ window.LoadProfile = class LoadProfile
           enabled: true
       plotOptions:
         column:
+          border: 0
           borderWidth: 0
           pointPadding: 0
           groupPadding: 0
@@ -45,7 +46,7 @@ window.LoadProfile = class LoadProfile
   _getSeries: ->
     _series = (
       {
-        name: "#{serie} Wattz"
+        name: serie
         data: @lab.getSerieValues('name': serie)
       } for serie in @lab.getSeries()
     )

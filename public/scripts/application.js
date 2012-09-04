@@ -36,7 +36,7 @@
     };
 
     Lab.prototype.getSeries = function() {
-      return ['100', '75', '50', '25'];
+      return ['Load 1', 'Load 2', 'Load 3', 'Load 4'];
     };
 
     Lab.prototype.displayLoadDialog = function(index) {
@@ -47,7 +47,7 @@
       }
       return this.template({
         loadIndex: index,
-        title: "Adding " + this._loadMap[index] + " wattz",
+        title: "Managing " + (this.getSeries()[+index]),
         experimentLength: this.length,
         times: this.findLoadSchedule(+index)
       });
@@ -122,14 +122,14 @@
     };
 
     Lab.prototype._loadMap = {
-      '100': 0,
-      '75': 1,
-      '50': 2,
-      '25': 3,
+      'Load 1': 0,
+      'Load 2': 1,
+      'Load 3': 2,
+      'Load 4': 3,
       0: '100',
-      1: '75',
-      2: '50',
-      3: '25'
+      1: '100',
+      2: '100',
+      3: '100'
     };
 
     return Lab;
@@ -144,7 +144,7 @@
 
   app = {
     setup: function() {
-      this.lab = new Lab(48);
+      this.lab = new Lab(24);
       this._drawGraph();
       this._setupListeners();
       this._prepareLaunch();

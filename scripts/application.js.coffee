@@ -34,7 +34,7 @@ class Lab
     hourInterval[loadIndex] for hourInterval in @profile
 
   # Returns an array with the loads of each serie
-  getSeries: -> ['100', '75', '50', '25']
+  getSeries: -> ['Load 1', 'Load 2', 'Load 3', 'Load 4']
 
   # Displays the Handlebars template for the dialog loaded with the profile
   # for the series at `index`
@@ -45,7 +45,7 @@ class Lab
     @template = Handlebars.compile(source) unless @template
     @template(
       loadIndex: index
-      title: "Adding #{@_loadMap[index]} wattz"
+      title: "Managing #{@getSeries()[+index]}"
       experimentLength: @length
       times: @findLoadSchedule(+index)
     )
@@ -148,14 +148,14 @@ class Lab
   # Map that holds the labels and indexes for each load
   # The index is the one in the `@profile` matrix
   _loadMap:
-    '100' : 0
-    '75'  : 1
-    '50'  : 2
-    '25'  : 3
-    0     : '100'
-    1     : '75'
-    2     : '50'
-    3     : '25'
+    'Load 1'  : 0
+    'Load 2'  : 1
+    'Load 3'  : 2
+    'Load 4'  : 3
+    0         : '100'
+    1         : '100'
+    2         : '100'
+    3         : '100'
 
 # End of Lab Class ------------------------------------------------------------
 
@@ -180,7 +180,7 @@ insideOfBounds = (from, to) ->
 
 app =
   setup: ->
-    @lab = new Lab(48) # Max lab lenght
+    @lab = new Lab(24) # Max lab lenght
     @_drawGraph()
     @_setupListeners()
     @_prepareLaunch()
