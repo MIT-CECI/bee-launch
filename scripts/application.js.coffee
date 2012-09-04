@@ -19,8 +19,7 @@ class Lab
       loadIndex = serieInfo['index']
     hourInterval[loadIndex] for hourInterval in @profile
 
-  getSeries: ->
-    ['100', '75', '50', '25']
+  getSeries: -> ['100', '75', '50', '25']
 
   displayLoadDialog: (index) ->
     source = $("#load-list").html()
@@ -75,8 +74,7 @@ class Lab
 
   # Builds a `@maxLength` * 4 matrix that will hold what loads are on
   # at a specific time.
-  _buildProfile: ->
-    @profile = ([0,0,0,0] for [1..@length])
+  _buildProfile: -> @profile = ([0,0,0,0] for [1..@length])
 
   # Map that holds the labels and indexes for each load
   # The index is the one in the `@profile` matrix
@@ -102,6 +100,7 @@ app =
     @lab = new Lab(48) # Max lab lenght
     @_drawGraph()
     @_setupListeners()
+    @_prepareLaunch()
     $("#js-load-schedule").overlay
       fixed: false
       mask:
@@ -125,6 +124,10 @@ app =
   removeLoadTime: (event) ->
     $(this).closest('.load').remove()
     event.preventDefault()
+
+  launchLab: ->
+    console?.log("Launching lab!")
+    window.launchPad.launch()
 
   submitLoads: (evnt) ->
     $tos      = $(this).find 'input.tos'
@@ -152,6 +155,10 @@ app =
 
     evnt.preventDefault()
 
+  _prepareLaunch: ->
+    window.launchPad = null if window.launchPad?
+    window.launchPad = new LaunchPad(@lab)
+
   _drawGraph: ->
     window.chart = null if window.chart?
     window.chart = new LoadProfile(@lab)
@@ -160,6 +167,8 @@ app =
     $('body').on 'click', '.js-add-load-row', @addLoadRow
     $('body').on 'click', '.js-add-load',     @loadSchedule
     $('body').on 'click', '.load .js-remove', @removeLoadTime
+
+    $('body').on 'click', '#js-launch-experiment', @launchLab
 
     $('body').on 'submit', '#submit-loads', @submitLoads
 

@@ -149,6 +149,7 @@
       this.lab = new Lab(48);
       this._drawGraph();
       this._setupListeners();
+      this._prepareLaunch();
       return $("#js-load-schedule").overlay({
         fixed: false,
         mask: {
@@ -179,6 +180,12 @@
       $(this).closest('.load').remove();
       return event.preventDefault();
     },
+    launchLab: function() {
+      if (typeof console !== "undefined" && console !== null) {
+        console.log("Launching lab!");
+      }
+      return window.launchPad.launch();
+    },
     submitLoads: function(evnt) {
       var $froms, $tos, error, from, index, loadIndex, _i, _len;
       $tos = $(this).find('input.tos');
@@ -207,6 +214,12 @@
       }
       return evnt.preventDefault();
     },
+    _prepareLaunch: function() {
+      if (window.launchPad != null) {
+        window.launchPad = null;
+      }
+      return window.launchPad = new LaunchPad(this.lab);
+    },
     _drawGraph: function() {
       if (window.chart != null) {
         window.chart = null;
@@ -217,6 +230,7 @@
       $('body').on('click', '.js-add-load-row', this.addLoadRow);
       $('body').on('click', '.js-add-load', this.loadSchedule);
       $('body').on('click', '.load .js-remove', this.removeLoadTime);
+      $('body').on('click', '#js-launch-experiment', this.launchLab);
       return $('body').on('submit', '#submit-loads', this.submitLoads);
     }
   };
