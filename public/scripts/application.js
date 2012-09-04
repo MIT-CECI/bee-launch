@@ -80,16 +80,14 @@
     };
 
     Lab.prototype.turnLoadOn = function(loadIndex, startIndex, endIndex) {
-      var _results;
       if (typeof console !== "undefined" && console !== null) {
         console.log("Turning " + loadIndex + " from " + startIndex + " to " + endIndex);
       }
-      _results = [];
       while (startIndex < endIndex) {
         this.profile[startIndex][loadIndex] = parseInt(this._loadMap[loadIndex]);
-        _results.push(startIndex++);
+        startIndex++;
       }
-      return _results;
+      return true;
     };
 
     Lab.prototype._findFirst = function(loadIndex, startIndex) {
