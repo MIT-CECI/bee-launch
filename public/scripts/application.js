@@ -20,7 +20,7 @@
     Lab.prototype.length = Lab.length;
 
     Lab.prototype.getSerieValues = function(serieInfo) {
-      var hourInterval, loadIndex, _i, _len, _ref, _results;
+      var hourInterval, loadIndex, time, _i, _len, _ref, _results;
       if (serieInfo['name']) {
         loadIndex = this._loadMap[serieInfo['name']];
       } else {
@@ -28,8 +28,8 @@
       }
       _ref = this.profile;
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        hourInterval = _ref[_i];
+      for (time = _i = 0, _len = _ref.length; _i < _len; time = ++_i) {
+        hourInterval = _ref[time];
         _results.push(hourInterval[loadIndex]);
       }
       return _results;
@@ -115,7 +115,7 @@
         var _i, _ref, _results;
         _results = [];
         for (_i = 1, _ref = this.length; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
-          _results.push([0, 0, 0, 0]);
+          _results.push([0, 100, 0, 0]);
         }
         return _results;
       }).call(this);

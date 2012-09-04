@@ -9,6 +9,9 @@ window.LoadProfile = class LoadProfile
       chart:
         renderTo: 'chart-container'
         type: 'column'
+        events:
+          click: (event) ->
+            console?.log(event, event.xAxis, event.yAxis)
       title:
         text: 'Load Profiles'
       tooltip:
@@ -24,8 +27,11 @@ window.LoadProfile = class LoadProfile
           text += "<b> Total: #{total} wattz </b>"
           text
       xAxis:
+        min: 0
+        max: @lab.length - 1
         title:
           text: 'Test Chamber Hours'
+        categories: (=> "#{hour}:00" for hour in [0..@lab.length])()
       yAxis:
         title:
           text: 'Total Wattz'
@@ -33,8 +39,7 @@ window.LoadProfile = class LoadProfile
           enabled: true
       plotOptions:
         column:
-          border: 0
-          borderWidth: 0
+          borderWidth: 2
           pointPadding: 0
           groupPadding: 0
           stacking: 'normal'

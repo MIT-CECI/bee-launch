@@ -31,7 +31,7 @@ class Lab
       loadIndex = @_loadMap[serieInfo['name']]
     else
       loadIndex = serieInfo['index']
-    hourInterval[loadIndex] for hourInterval in @profile
+    hourInterval[loadIndex] for hourInterval, time in @profile
 
   # Returns an array with the loads of each serie
   getSeries: -> ['Load 1', 'Load 2', 'Load 3', 'Load 4']
@@ -142,7 +142,7 @@ class Lab
   # at a specific time.
   #
   # Returns the matrix
-  _buildProfile: -> @profile = ([0,0,0,0] for [1..@length])
+  _buildProfile: -> @profile = ([0,100,0,0] for [1..@length])
 
   # Private object
   # Map that holds the labels and indexes for each load

@@ -12,10 +12,16 @@
     };
 
     LoadProfile.prototype.buildGraph = function() {
+      var _this = this;
       return this.chart = new Highcharts.Chart({
         chart: {
           renderTo: 'chart-container',
-          type: 'column'
+          type: 'column',
+          events: {
+            click: function(event) {
+              return typeof console !== "undefined" && console !== null ? console.log(event, event.xAxis, event.yAxis) : void 0;
+            }
+          }
         },
         title: {
           text: 'Load Profiles'
@@ -39,9 +45,19 @@
           }
         },
         xAxis: {
+          min: 0,
+          max: this.lab.length - 1,
           title: {
             text: 'Test Chamber Hours'
-          }
+          },
+          categories: (function() {
+            var hour, _i, _ref, _results;
+            _results = [];
+            for (hour = _i = 0, _ref = _this.lab.length; 0 <= _ref ? _i <= _ref : _i >= _ref; hour = 0 <= _ref ? ++_i : --_i) {
+              _results.push("" + hour + ":00");
+            }
+            return _results;
+          })()
         },
         yAxis: {
           title: {
@@ -53,8 +69,7 @@
         },
         plotOptions: {
           column: {
-            border: 0,
-            borderWidth: 0,
+            borderWidth: 2,
             pointPadding: 0,
             groupPadding: 0,
             stacking: 'normal',
