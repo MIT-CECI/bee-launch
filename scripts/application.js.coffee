@@ -57,6 +57,8 @@ class Lab
       @profile[startIndex][loadIndex] = parseInt @_loadMap[loadIndex]
       startIndex++
 
+  # Private Functions ---------------------------------------------------------
+
   _findFirst: (loadIndex, startIndex) ->
     while (startIndex < @length and @profile[startIndex][loadIndex] == 0)
       startIndex++
@@ -88,18 +90,16 @@ class Lab
     2     : '50'
     3     : '25'
 
-# End of Lab Class
+# End of Lab Class ------------------------------------------------------------
 
-outOfBounds = (from, to) ->
-  parseInt(from) > app.lab.length or
-  parseInt(from) < 0 or
-
-  parseInt(to)   > app.lab.length or
-  parseInt(to)   < 0
+insideOfBounds = (from, to) ->
+  to    = parseInt(to)
+  from  = parseInt(from)
+  0 <= from <= to <= app.lab.length
 
 app =
   setup: ->
-    @lab = new Lab(48)
+    @lab = new Lab(48) # Max lab lenght
     @_drawGraph()
     @_setupListeners()
     $("#js-load-schedule").overlay
@@ -133,15 +133,16 @@ app =
 
     app.lab.turnLoadOff(loadIndex)
 
-    error = false
+    error = ""
 
     for from, index in $froms
-      if outOfBounds(parseInt(from.value), parseInt($tos[index].value))
-        $(from).closest('.load').addClass('error-row').find('td').addClass('error-row')
-        error = "#invalid-length"
-      else
+      if insideOfBounds(parseInt(from.value), parseInt($tos[index].value))
         $(from).closest('.load').removeClass('error-row').find('td').removeClass('error-row')
         app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value))
+      else
+        console?.log "Out of bounds #{from.value} #{parseInt($tos[index].value)}"
+        $(from).closest('.load').addClass('error-row').find('td').addClass('error-row')
+        error = "#invalid-length"
 
     if error != ""
       $("#load-modal .error").show()

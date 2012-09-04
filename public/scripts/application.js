@@ -1,5 +1,5 @@
 (function() {
-  var BEE, Lab, app, outOfBounds;
+  var BEE, Lab, app, insideOfBounds;
 
   BEE = {
     VERSION: '1.0.beta',
@@ -136,8 +136,10 @@
 
   })();
 
-  outOfBounds = function(from, to) {
-    return parseInt(from) > app.lab.length || parseInt(from) < 0 || parseInt(to) > app.lab.length || parseInt(to) < 0;
+  insideOfBounds = function(from, to) {
+    to = parseInt(to);
+    from = parseInt(from);
+    return ((0 <= from && from <= to) && to <= app.lab.length);
   };
 
   app = {
@@ -181,15 +183,18 @@
       $froms = $(this).find('input.froms');
       loadIndex = parseInt($(this).find("#ldInd").val());
       app.lab.turnLoadOff(loadIndex);
-      error = false;
+      error = "";
       for (index = _i = 0, _len = $froms.length; _i < _len; index = ++_i) {
         from = $froms[index];
-        if (outOfBounds(parseInt(from.value), parseInt($tos[index].value))) {
-          $(from).closest('.load').addClass('error-row').find('td').addClass('error-row');
-          error = "#invalid-length";
-        } else {
+        if (insideOfBounds(parseInt(from.value), parseInt($tos[index].value))) {
           $(from).closest('.load').removeClass('error-row').find('td').removeClass('error-row');
           app.lab.turnLoadOn(loadIndex, parseInt(from.value), parseInt($tos[index].value));
+        } else {
+          if (typeof console !== "undefined" && console !== null) {
+            console.log("Out of bounds " + from.value + " " + (parseInt($tos[index].value)));
+          }
+          $(from).closest('.load').addClass('error-row').find('td').addClass('error-row');
+          error = "#invalid-length";
         }
       }
       if (error !== "") {
