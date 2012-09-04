@@ -1,18 +1,38 @@
 body {
   background: #f3efe5;
-  font-family: 'Helvetica Neue', Helvetica;
-  font-weight: 200; }
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 200;
+  line-height: 20px;
+  font-size: 16px; }
 
 nav ul {
-  padding: 0; }
+  padding: 0;
+  width: 90%;
+  margin: 20px auto; }
   nav ul li {
     list-style: none;
-    padding: 0;
     display: inline-block;
-    margin: 0px 5px; }
+    margin: 0px 10px; }
+
+.button {
+  background: #d5bfa1;
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -ms-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear; }
+  .button:hover, .button:focus {
+    color: white;
+    background: #c6a77d; }
 
 #chart-container {
-  width: 95%;
+  width: 90%;
   margin: 0 auto; }
 
 .load-table {
@@ -25,8 +45,11 @@ nav ul {
   background: white;
   padding: 20px;
   border: 5px solid rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: compact(1px 1px 5px black, false, false, false, false, false, false, false, false);
-  box-shadow: compact(1px 1px 5px black, false, false, false, false, false, false, false, false);
+  -webkit-box-shadow: 0px 0px 20px black;
+  -moz-box-shadow: 0px 0px 20px black;
+  -ms-box-shadow: 0px 0px 20px black;
+  -o-box-shadow: 0px 0px 20px black;
+  box-shadow: 0px 0px 20px black;
   -webkit-border-radius: 5px;
   border-radius: 5px; }
   #js-load-schedule .error {

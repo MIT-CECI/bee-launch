@@ -1,28 +1,57 @@
 @import 'bourbon/bourbon';
 
+@mixin _transition ($value) {
+  @include prefixer(transition, $value, webkit, moz, ms, o);
+}
+
+@mixin _box-shadow ($value) {
+  @include prefixer(box-shadow, $value, webkit, moz, ms, o);
+}
+
 $spacing: 20px;
 
 $ilab-bg-color: #F3EFE5;
+$ilab-link-color: darken(#E5D7C4, 10%);
+
 $error-bg-color: rgba(255, 0, 0, 0.5);
+
 
 body{
   background: $ilab-bg-color;
-  font-family: 'Helvetica Neue', Helvetica;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 200;
+  line-height: 20px;
+  font-size: 16px;
 }
 
 nav ul {
   padding: 0;
+  width: 90%;
+  margin: 20px auto;
   li {
     list-style: none;
-    padding: 0;
     display: inline-block;
-    margin: 0px 5px;
+    margin: 0px 10px;
+  }
+}
+
+.button{
+  background: $ilab-link-color;
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+
+  @include border-radius(5px);
+  @include _transition(all .1s linear);
+  &:hover, &:focus{
+    color: white;
+    background: darken($ilab-link-color, 10%);
   }
 }
 
 #chart-container{
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -31,14 +60,13 @@ nav ul {
   th, td{ text-align: center;}
 }
 
-
 #js-load-schedule{
   display: none;
   background: white;
   padding: $spacing;
   border: 5px solid rgba(0,0,0,0.5);
 
-  @include box-shadow(1px 1px 5px #000);
+  @include _box-shadow(0px 0px 20px #000);
   @include border-radius(5px);
 
   .error{
@@ -55,5 +83,4 @@ nav ul {
   .error-row{
     background: $error-bg-color;
   }
-
 }
