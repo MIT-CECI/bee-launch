@@ -42,7 +42,9 @@
     Lab.prototype.displayLoadDialog = function(index) {
       var source;
       source = $("#load-list").html();
-      this.template = Handlebars.compile(source);
+      if (!this.template) {
+        this.template = Handlebars.compile(source);
+      }
       return this.template({
         loadIndex: index,
         title: "Adding " + this._loadMap[index] + " wattz",

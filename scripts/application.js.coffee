@@ -24,7 +24,7 @@ class Lab
 
   displayLoadDialog: (index) ->
     source = $("#load-list").html()
-    @template = Handlebars.compile(source)
+    @template = Handlebars.compile(source) unless @template
     @template(
       loadIndex: index
       title: "Adding #{@_loadMap[index]} wattz"
