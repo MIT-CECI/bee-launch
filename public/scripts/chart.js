@@ -16,7 +16,7 @@
       xPosition = parseInt(xPosition);
       currentLoad = BEE.activeLoad;
       if (currentLoad >= 0) {
-        this.lab.turnLoadOn(currentLoad, xPosition, xPosition + 1);
+        this.lab.toggleLoad(currentLoad, xPosition);
         return this.updateChart(currentLoad);
       } else {
         if (typeof console !== "undefined" && console !== null) {
@@ -88,12 +88,13 @@
         plotOptions: {
           series: {
             cursor: 'pointer',
-            events: {
-              click: function(event) {
-                if (typeof console !== "undefined" && console !== null) {
-                  console.log(event, "Clicked a serie");
+            point: {
+              events: {
+                click: function(event) {
+                  _this.addToCurrentLoad(event.point.x);
+                  event.preventDefault();
+                  return false;
                 }
-                return _this.addToCurrentLoad(event.point.x);
               }
             }
           },

@@ -20,6 +20,13 @@
 
     Lab.prototype.length = Lab.length;
 
+    Lab.prototype.toggleLoad = function(loadIndex, hour) {
+      var hourWatts, toggleItAsInt;
+      hourWatts = parseInt(this._loadMap[loadIndex]);
+      toggleItAsInt = +(!this.profile[hour][loadIndex]);
+      return this.profile[hour][loadIndex] = hourWatts * toggleItAsInt;
+    };
+
     Lab.prototype.getSerieValues = function(serieInfo) {
       var hourInterval, loadIndex, time, _i, _len, _ref, _results;
       if (serieInfo['name']) {

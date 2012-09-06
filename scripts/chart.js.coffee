@@ -8,7 +8,7 @@ window.LoadProfile = class LoadProfile
     xPosition = parseInt(xPosition)
     currentLoad = BEE.activeLoad
     if currentLoad >= 0
-      @lab.turnLoadOn(currentLoad, xPosition, xPosition + 1)
+      @lab.toggleLoad(currentLoad, xPosition)
       @updateChart(currentLoad)
     else
       console?.log(xPosition, "There is no current load selected")
@@ -52,10 +52,12 @@ window.LoadProfile = class LoadProfile
       plotOptions:
         series:
           cursor: 'pointer'
-          events:
-            click: (event) =>
-              console?.log(event, "Clicked a serie")
-              @addToCurrentLoad(event.point.x)
+          point:
+            events:
+              click: (event) =>
+                @addToCurrentLoad(event.point.x)
+                event.preventDefault()
+                false
         column:
           borderWidth: 2
           pointPadding: 0

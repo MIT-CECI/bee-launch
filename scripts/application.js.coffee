@@ -15,6 +15,16 @@ class Lab
 
   length: @length
 
+
+  # Turns a load on/off at a specific hour
+  #
+  # It will not update the chart
+  toggleLoad: (loadIndex, hour) ->
+    hourWatts = parseInt @_loadMap[loadIndex]
+    toggleItAsInt = + !@profile[hour][loadIndex] # returns 1 or 0 as integers
+    @profile[hour][loadIndex] = hourWatts * toggleItAsInt
+
+
   # Given object with either an index or a name, this method returns the
   # profile for that specific series.
   #
