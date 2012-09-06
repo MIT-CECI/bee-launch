@@ -1,5 +1,6 @@
-BEE =
-  VERSION: '1.0.beta'
+window.BEE =
+  activeLoad: -1
+  VERSION: '2.0.beta'
   EMPTY_LOAD:
     from: 0
     to: 0
@@ -142,7 +143,7 @@ class Lab
   # at a specific time.
   #
   # Returns the matrix
-  _buildProfile: -> @profile = ([0,100,0,0] for [1..@length])
+  _buildProfile: -> @profile = ([0,0,0,0] for [1..@length])
 
   # Private object
   # Map that holds the labels and indexes for each load
@@ -200,8 +201,33 @@ app =
     event.preventDefault()
 
   # jQuery Listener
+  # This will set the `window.currentLoad` to the one pointed by the radio
+  # button that was just clicked.
+  #
+  # This will also toggle the label to an 'active' state
+  setCurrentLoad: (event) ->
+    $('label.button.active').removeClass('active')
+    loadIndex = parseInt($(this).val())
+    myLabel = $(this).parent().find('label').addClass('active')
+    BEE.activeLoad = loadIndex
+
+  # jQuery Listener
+  # This will set the BEE.activeLoad to `-1` and also will remove any active
+  # state from any label.
+  removeCurrentLoad: (event) ->
+    BEE.activeLoad = -1
+    $('label.button.active').removeClass('active')
+    $('.js-add-load').prop('checked', false)
+    event.preventDefault()
+
+
+
+  # DEPRECATED
+  #
+  # jQuery Listener
   # Displays the modal window with the selected load profile
   loadSchedule: (event) ->
+    console?.log("DEPRECATED ON VERSION 2.0!")
     loadIndex = $(this).data('load-index')
     loadHTML = app.lab.displayLoadDialog(parseInt(loadIndex))
     $("#js-load-schedule").html(loadHTML)
@@ -261,9 +287,11 @@ app =
     window.chart = new LoadProfile(@lab)
 
   _setupListeners: ->
-    $('body').on 'click', '.js-add-load-row', @addLoadRow
-    $('body').on 'click', '.js-add-load',     @loadSchedule
-    $('body').on 'click', '.load .js-remove', @removeLoadTime
+    $('body').on 'click',  '.js-add-load-row', @addLoadRow
+    $('body').on 'click',  '.load .js-remove', @removeLoadTime
+
+    $('body').on 'change', '.js-add-load',        @setCurrentLoad
+    $('body').on 'click',  'label.button.active', @removeCurrentLoad
 
     $('body').on 'click', '#js-launch-experiment', @launchLab
 

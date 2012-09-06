@@ -2,7 +2,6 @@ window.LaunchPad = class LaunchPad
   constructor: (lab) ->
     @lab = lab
     @profile = lab.profile
-    console?.log 'hello houston, we are T - 238 minutes'
 
   launch: ->
     launchString = ""

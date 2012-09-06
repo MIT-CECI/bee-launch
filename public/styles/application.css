@@ -5,14 +5,16 @@ body {
   line-height: 20px;
   font-size: 16px; }
 
-nav ul {
-  padding: 0;
-  width: 90%;
-  margin: 20px auto; }
-  nav ul li {
-    list-style: none;
-    display: inline-block;
-    margin: 0px 10px; }
+nav {
+  padding: 40px 0px; }
+  nav ul {
+    padding: 0;
+    width: 90%;
+    margin: 0 auto; }
+    nav ul li {
+      list-style: none;
+      display: inline-block;
+      margin: 0px 10px; }
 
 .button {
   background: #d5bfa1;
@@ -20,16 +22,15 @@ nav ul {
   padding: 8px;
   text-decoration: none;
   color: black;
+  cursor: pointer;
   -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -ms-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  transition: all 0.1s linear; }
-  .button:hover, .button:focus {
+  border-radius: 5px; }
+  .button:hover, .button:focus, .button.active {
     color: white;
     background: #c6a77d; }
+
+input[type=radio] {
+  display: none; }
 
 #chart-container {
   width: 90%;

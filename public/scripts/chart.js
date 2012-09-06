@@ -11,6 +11,23 @@
       return this.chart.series[seriesIndex].setData(newData, true);
     };
 
+    LoadProfile.prototype.addToCurrentLoad = function(xPosition) {
+      var currentLoad;
+      xPosition = parseInt(xPosition);
+      currentLoad = BEE.activeLoad;
+      if (currentLoad >= 0) {
+        this.lab.turnLoadOn(currentLoad, xPosition, xPosition + 1);
+        return this.updateChart(currentLoad);
+      } else {
+        if (typeof console !== "undefined" && console !== null) {
+          console.log(xPosition, "There is no current load selected");
+        }
+        return $(".navigation").stop().effect("bounce", {
+          times: 3
+        }, 200);
+      }
+    };
+
     LoadProfile.prototype.buildGraph = function() {
       var _this = this;
       return this.chart = new Highcharts.Chart({
@@ -19,7 +36,7 @@
           type: 'column',
           events: {
             click: function(event) {
-              return typeof console !== "undefined" && console !== null ? console.log(event, event.xAxis, event.yAxis) : void 0;
+              return _this.addToCurrentLoad(event.xAxis[0].value);
             }
           }
         },
@@ -69,6 +86,17 @@
           }
         },
         plotOptions: {
+          series: {
+            cursor: 'pointer',
+            events: {
+              click: function(event) {
+                if (typeof console !== "undefined" && console !== null) {
+                  console.log(event, "Clicked a serie");
+                }
+                return _this.addToCurrentLoad(event.point.x);
+              }
+            }
+          },
           column: {
             borderWidth: 2,
             pointPadding: 0,

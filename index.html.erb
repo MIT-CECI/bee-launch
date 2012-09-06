@@ -10,17 +10,27 @@
 
 <nav>
   <ul class="navigation">
-    <li>
-      <a class='js-add-load button' href='#' data-load-index='0'>Load 1</a>
+    <li id='load-label'>
+      <strong>Please select a load to manage:</strong>
     </li>
     <li>
-      <a class='js-add-load button' href='#' data-load-index='1'>Load 2</a>
+      <label for='load-1' class='button'>Load 1</label>
+      <input type='radio' class='js-add-load button' name='js-active-load' value='0' id='load-1'/>
     </li>
+
     <li>
-      <a class='js-add-load button' href='#' data-load-index='2'>Load 3</a>
+      <label for='load-2' class='button'>Load 2</label>
+      <input type='radio' class='js-add-load button' name='js-active-load' value='1' id='load-2'/>
     </li>
+
     <li>
-      <a class='js-add-load button' href='#' data-load-index='3'>Load 4</a>
+      <label for='load-3' class='button'>Load 3</label>
+      <input type='radio' class='js-add-load button' name='js-active-load' value='2' id='load-3'/>
+    </li>
+
+    <li>
+      <label for='load-4' class='button'>Load 4</label>
+      <input type='radio' class='js-add-load button' name='js-active-load' value='3' id='load-4'/>
     </li>
   </ul>
 </nav>
@@ -32,3 +42,6 @@
 </a>
 
 <div id="js-load-schedule"></div>
+
+
+<!-- <a class='js-add-load button' href='#' value='2'>Load 3</a> -->

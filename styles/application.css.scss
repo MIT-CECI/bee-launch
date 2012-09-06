@@ -16,14 +16,17 @@ body{
   font-size: 16px;
 }
 
-nav ul {
-  padding: 0;
-  width: 90%;
-  margin: 20px auto;
-  li {
-    list-style: none;
-    display: inline-block;
-    margin: 0px 10px;
+nav{
+  padding: 40px 0px;
+  ul{
+    padding: 0;
+    width: 90%;
+    margin: 0 auto;
+    li {
+      list-style: none;
+      display: inline-block;
+      margin: 0px 10px;
+    }
   }
 }
 
@@ -33,14 +36,15 @@ nav ul {
   padding: 8px;
   text-decoration: none;
   color: black;
-
+  cursor: pointer;
   @include border-radius(5px);
-  @include transition(all .1s linear);
-  &:hover, &:focus{
+  &:hover, &:focus, &.active{
     color: white;
     background: darken($ilab-link-color, 10%);
   }
 }
+
+input[type=radio] { display: none; }
 
 #chart-container{
   width: 90%;

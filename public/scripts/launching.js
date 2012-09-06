@@ -6,9 +6,6 @@
     function LaunchPad(lab) {
       this.lab = lab;
       this.profile = lab.profile;
-      if (typeof console !== "undefined" && console !== null) {
-        console.log('hello houston, we are T - 238 minutes');
-      }
     }
 
     LaunchPad.prototype.launch = function() {

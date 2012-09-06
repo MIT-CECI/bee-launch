@@ -1,8 +1,9 @@
 (function() {
-  var BEE, Lab, app, insideOfBounds;
+  var Lab, app, insideOfBounds;
 
-  BEE = {
-    VERSION: '1.0.beta',
+  window.BEE = {
+    activeLoad: -1,
+    VERSION: '2.0.beta',
     EMPTY_LOAD: {
       from: 0,
       to: 0
@@ -115,7 +116,7 @@
         var _i, _ref, _results;
         _results = [];
         for (_i = 1, _ref = this.length; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
-          _results.push([0, 100, 0, 0]);
+          _results.push([0, 0, 0, 0]);
         }
         return _results;
       }).call(this);
@@ -166,8 +167,24 @@
       }));
       return event.preventDefault();
     },
+    setCurrentLoad: function(event) {
+      var loadIndex, myLabel;
+      $('label.button.active').removeClass('active');
+      loadIndex = parseInt($(this).val());
+      myLabel = $(this).parent().find('label').addClass('active');
+      return BEE.activeLoad = loadIndex;
+    },
+    removeCurrentLoad: function(event) {
+      BEE.activeLoad = -1;
+      $('label.button.active').removeClass('active');
+      $('.js-add-load').prop('checked', false);
+      return event.preventDefault();
+    },
     loadSchedule: function(event) {
       var loadHTML, loadIndex;
+      if (typeof console !== "undefined" && console !== null) {
+        console.log("DEPRECATED ON VERSION 2.0!");
+      }
       loadIndex = $(this).data('load-index');
       loadHTML = app.lab.displayLoadDialog(parseInt(loadIndex));
       $("#js-load-schedule").html(loadHTML);
@@ -226,8 +243,9 @@
     },
     _setupListeners: function() {
       $('body').on('click', '.js-add-load-row', this.addLoadRow);
-      $('body').on('click', '.js-add-load', this.loadSchedule);
       $('body').on('click', '.load .js-remove', this.removeLoadTime);
+      $('body').on('change', '.js-add-load', this.setCurrentLoad);
+      $('body').on('click', 'label.button.active', this.removeCurrentLoad);
       $('body').on('click', '#js-launch-experiment', this.launchLab);
       return $('body').on('submit', '#submit-loads', this.submitLoads);
     }

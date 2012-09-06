@@ -4,14 +4,25 @@ window.LoadProfile = class LoadProfile
     newData = @lab.getSerieValues('index': seriesIndex)
     @chart.series[seriesIndex].setData(newData, true)
 
+  addToCurrentLoad: (xPosition) ->
+    xPosition = parseInt(xPosition)
+    currentLoad = BEE.activeLoad
+    if currentLoad >= 0
+      @lab.turnLoadOn(currentLoad, xPosition, xPosition + 1)
+      @updateChart(currentLoad)
+    else
+      console?.log(xPosition, "There is no current load selected")
+      $(".navigation").stop().effect("bounce", { times: 3 }, 200)
+
+
   buildGraph: ->
     @chart = new Highcharts.Chart
       chart:
         renderTo: 'chart-container'
         type: 'column'
         events:
-          click: (event) ->
-            console?.log(event, event.xAxis, event.yAxis)
+          click: (event) =>
+            @addToCurrentLoad(event.xAxis[0].value)
       title:
         text: 'Load Profiles'
       tooltip:
@@ -39,6 +50,12 @@ window.LoadProfile = class LoadProfile
         stackedLabels:
           enabled: true
       plotOptions:
+        series:
+          cursor: 'pointer'
+          events:
+            click: (event) =>
+              console?.log(event, "Clicked a serie")
+              @addToCurrentLoad(event.point.x)
         column:
           borderWidth: 2
           pointPadding: 0
