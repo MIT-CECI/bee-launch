@@ -16,12 +16,13 @@ window.LoadProfile = class LoadProfile
         text: 'Load Profiles'
       tooltip:
         formatter: ->
+          x = parseInt(@x)
           total = 0
-          text  = "<b>#{@x}:00 - #{@x + 1}:00</b> <br /> -- <br />"
+          text  = "<b>#{@x} - #{x + 1}:00</b> <br /> -- <br />"
 
           for serie in @series.chart.series
-            text  += "#{serie.name} <br />" if serie.yData[@x] > 0
-            total += serie.yData[@x]
+            text  += "#{serie.name} <br />" if serie.yData[x] > 0
+            total += serie.yData[x]
 
           text += " -- <br />"
           text += "<b> Total: #{total} wattz </b>"

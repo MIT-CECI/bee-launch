@@ -28,16 +28,17 @@
         },
         tooltip: {
           formatter: function() {
-            var serie, text, total, _i, _len, _ref;
+            var serie, text, total, x, _i, _len, _ref;
+            x = parseInt(this.x);
             total = 0;
-            text = "<b>" + this.x + ":00 - " + (this.x + 1) + ":00</b> <br /> -- <br />";
+            text = "<b>" + this.x + " - " + (x + 1) + ":00</b> <br /> -- <br />";
             _ref = this.series.chart.series;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               serie = _ref[_i];
-              if (serie.yData[this.x] > 0) {
+              if (serie.yData[x] > 0) {
                 text += "" + serie.name + " <br />";
               }
-              total += serie.yData[this.x];
+              total += serie.yData[x];
             }
             text += " -- <br />";
             text += "<b> Total: " + total + " wattz </b>";
