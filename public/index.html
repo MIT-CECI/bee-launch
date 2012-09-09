@@ -7,13 +7,15 @@
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <link href='styles/application.css' rel='stylesheet' type='text/css'>
+
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   <script src="http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js"></script>
-  <script type="text/javascript" src="scripts/vendor/handlebars.js"></script>
+
   <script type="text/javascript" src="scripts/vendor/highstock.js"></script>
   <script type="text/javascript" src="scripts/vendor/exporting.src.js"></script>
   <script type="text/javascript" src="scripts/vendor/highstock.theme.grid.js"></script>
+
   <script type="text/javascript" src="scripts/application.js"></script>
   <script type="text/javascript" src="scripts/chart.js"></script>
   <script type="text/javascript" src="scripts/launching.js"></script>
@@ -27,64 +29,6 @@
   by clicking the buttons for each specific wattage.
 </div>
 
-<script id="load-list" type="text/x-handlebars-template">
-<div id="load-modal">
-<h1 class="title">{{title}}</h1>
-
-<div class="description">
-  <p>
-    Select the schedule you want this load to be on. Remember that the
-    experiment will run for <strong>{{experimentLength}} hours</strong>.
-  </p>
-
-  <p>
-    The loads <strong>can only be set to "O'clock" hours</strong>, so 3:30 will be parsed as
-    3:00 in the profile.
-  </p>
-</div>
-
-<form action='#' id='submit-loads'>
-
-<input type="hidden" value="{{loadIndex}}" name="loadIndex" id="ldInd"></input>
-
-<table class="load-table">
-  <tr>
-    <th>From</th>
-    <th>To</th>
-    <th>&nbsp;</th>
-  </tr>
-
-  {{> single_load }}
-</table>
-
-<p>
-  <a href='#' class='js-add-load-row'>Add another time</a>
-</p>
-
-<p><input type='submit' value='Submit & Close Modal'></input></p>
-</form>
-
-<div class="error" id="invalid-length">Some load times are invalid. Fix them to continue</div>
-
-</div>
-</script>
-<script id="single-load" type="text/x-handlebars-template">
-{{#each times}}
-<tr class="load">
-  <td>
-    <input type="text" name="from[]" value="{{from}}" size="5" class='froms'>
-    </input>
-  </td>
-  <td>
-    <input type="text" name="to[]" value="{{to}}" size="5" class='tos'>
-    </input>
-  </td>
-  <td>
-    <a class="js-remove" href='#'>(remove)</a>
-  </td>
-</tr>
-{{/each}}
-</script>
 <nav>
   <ul class="navigation">
     <li id='load-label'>
