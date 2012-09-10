@@ -5,7 +5,9 @@ window.LoadProfile = class LoadProfile
     @chart.series[seriesIndex].setData(newData, true)
 
   addToCurrentLoad: (xPosition) ->
-    xPosition = parseInt(xPosition)
+    xPosition = Math.round(xPosition)
+    xPosition = 0  if xPosition < 0
+    xPosition = @lab.lenght - 1 if xPosition >= @lab.lenght
     currentLoad = BEE.activeLoad
     if currentLoad >= 0
       @lab.toggleLoad(currentLoad, xPosition)
@@ -16,6 +18,8 @@ window.LoadProfile = class LoadProfile
 
 
   buildGraph: ->
+    labWidth = 900
+    # xAxisLabelOffset = parseInt(labWidth / @lab.lenght) / 2
     @chart = new Highcharts.Chart
       chart:
         renderTo: 'chart-container'
@@ -41,6 +45,7 @@ window.LoadProfile = class LoadProfile
       xAxis:
         min: 0
         max: @lab.length - 1
+        padding: 0
         title:
           text: 'Test Chamber Hours'
         categories: (=> "#{hour}:00" for hour in [0..@lab.length])()

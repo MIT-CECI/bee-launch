@@ -32,6 +32,8 @@ Highcharts.theme = {
   },
   xAxis: {
     gridLineWidth: 1,
+    tickInterval: 1,
+    minorTickInterval: 0,
     lineColor: '#000',
     tickColor: '#000',
     labels: {

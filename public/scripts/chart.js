@@ -13,7 +13,13 @@
 
     LoadProfile.prototype.addToCurrentLoad = function(xPosition) {
       var currentLoad;
-      xPosition = parseInt(xPosition);
+      xPosition = Math.round(xPosition);
+      if (xPosition < 0) {
+        xPosition = 0;
+      }
+      if (xPosition >= this.lab.lenght) {
+        xPosition = this.lab.lenght - 1;
+      }
       currentLoad = BEE.activeLoad;
       if (currentLoad >= 0) {
         this.lab.toggleLoad(currentLoad, xPosition);
@@ -29,7 +35,9 @@
     };
 
     LoadProfile.prototype.buildGraph = function() {
-      var _this = this;
+      var labWidth,
+        _this = this;
+      labWidth = 900;
       return this.chart = new Highcharts.Chart({
         chart: {
           renderTo: 'chart-container',
@@ -65,6 +73,7 @@
         xAxis: {
           min: 0,
           max: this.lab.length - 1,
+          padding: 0,
           title: {
             text: 'Test Chamber Hours'
           },
