@@ -77,15 +77,7 @@
       this.lab = new Lab(24);
       this._drawGraph();
       this._setupListeners();
-      this._prepareLaunch();
-      return $("#js-load-schedule").overlay({
-        fixed: false,
-        mask: {
-          color: '#000',
-          loadSpeed: 200,
-          opacity: 0.2
-        }
-      });
+      return this._prepareLaunch();
     },
     setCurrentLoad: function(event) {
       var loadIndex, myLabel;

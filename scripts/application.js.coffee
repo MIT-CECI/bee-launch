@@ -78,12 +78,6 @@ app =
     @_drawGraph()
     @_setupListeners()
     @_prepareLaunch()
-    $("#js-load-schedule").overlay
-      fixed: false
-      mask:
-        color: '#000'
-        loadSpeed: 200
-        opacity: 0.2
 
   # jQuery Listener
   # This will set the `window.currentLoad` to the one pointed by the radio

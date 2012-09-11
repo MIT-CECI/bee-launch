@@ -13,8 +13,7 @@ window.LoadProfile = class LoadProfile
       @lab.toggleLoad(currentLoad, xPosition)
       @updateChart(currentLoad)
     else
-      console?.log(xPosition, "There is no current load selected")
-      $(".navigation").stop().effect("bounce", { times: 3 }, 200)
+      $(".navigation").stop().effect("bounce", { times: 2 }, 200)
 
 
   buildGraph: ->
@@ -27,6 +26,7 @@ window.LoadProfile = class LoadProfile
         events:
           click: (event) =>
             @addToCurrentLoad(event.xAxis[0].value)
+            false
       title:
         text: 'Load Profiles'
       tooltip:

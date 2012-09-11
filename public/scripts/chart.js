@@ -25,11 +25,8 @@
         this.lab.toggleLoad(currentLoad, xPosition);
         return this.updateChart(currentLoad);
       } else {
-        if (typeof console !== "undefined" && console !== null) {
-          console.log(xPosition, "There is no current load selected");
-        }
         return $(".navigation").stop().effect("bounce", {
-          times: 3
+          times: 2
         }, 200);
       }
     };
@@ -44,7 +41,8 @@
           type: 'column',
           events: {
             click: function(event) {
-              return _this.addToCurrentLoad(event.xAxis[0].value);
+              _this.addToCurrentLoad(event.xAxis[0].value);
+              return false;
             }
           }
         },
