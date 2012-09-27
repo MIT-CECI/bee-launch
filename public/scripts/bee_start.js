@@ -92,11 +92,14 @@
       $('.js-add-load').prop('checked', false);
       return event.preventDefault();
     },
-    launchLab: function() {
+    launchLab: function(event) {
+      var launchString;
+      launchString = window.launchPad.launch();
       if (typeof console !== "undefined" && console !== null) {
-        console.log("Launching lab!");
+        console.log(launchString, "Launching lab!");
       }
-      return window.launchPad.launch();
+      $("#hdnProfile").val(launchString);
+      return $("#btnGo").click();
     },
     _prepareLaunch: function() {
       if (window.launchPad != null) {

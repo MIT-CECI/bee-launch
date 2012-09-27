@@ -10,11 +10,10 @@ window.LaunchPad = class LaunchPad
       if @_sameProfile(@profile[i], @profile[i + 1])
         hours++
       else
-        console?.log "Hours: #{hours} -> Time: #{i} -> Profile: #{@profile[i]}"
+        # console?.log "Hours: #{hours} -> Time: #{i} -> Profile: #{@profile[i]}"
         launchString += "#{hours * 60} #{@_normalizeHourProfile(@profile[i]).join(" ")} "
         hours = 1
 
-    console?.log(launchString, "This is the launch profile string")
     launchString
 
   _normalizeHourProfile: (hourProfile) ->

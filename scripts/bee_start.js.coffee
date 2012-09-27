@@ -101,10 +101,12 @@ app =
 
   # jQuery Listener
   # Launches the experiment
-  # TODO: Send everything to the server
-  launchLab: ->
-    console?.log("Launching lab!")
-    window.launchPad.launch()
+  # TODO: Test this on the server
+  launchLab: (event) ->
+    launchString = window.launchPad.launch()
+    console?.log(launchString, "Launching lab!")
+    $("#hdnProfile").val(launchString)
+    $("#btnGo").click() # Use the C# button
 
   _prepareLaunch: ->
     window.launchPad = null if window.launchPad?

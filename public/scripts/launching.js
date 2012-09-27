@@ -16,15 +16,9 @@
         if (this._sameProfile(this.profile[i], this.profile[i + 1])) {
           hours++;
         } else {
-          if (typeof console !== "undefined" && console !== null) {
-            console.log("Hours: " + hours + " -> Time: " + i + " -> Profile: " + this.profile[i]);
-          }
           launchString += "" + (hours * 60) + " " + (this._normalizeHourProfile(this.profile[i]).join(" ")) + " ";
           hours = 1;
         }
-      }
-      if (typeof console !== "undefined" && console !== null) {
-        console.log(launchString, "This is the launch profile string");
       }
       return launchString;
     };
