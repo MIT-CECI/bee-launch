@@ -44,7 +44,7 @@ nav{
   }
 }
 
-input[type=radio] { display: none; }
+input[type=radio], #btnGo { display: none; }
 
 #chart-container{
   width: 90%;

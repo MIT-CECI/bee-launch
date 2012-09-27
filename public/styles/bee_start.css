@@ -29,7 +29,7 @@ nav {
     color: white;
     background: #c6a77d; }
 
-input[type=radio] {
+input[type=radio], #btnGo {
   display: none; }
 
 #chart-container {
