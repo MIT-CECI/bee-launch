@@ -85,6 +85,7 @@
           })()
         },
         yAxis: {
+          max: 500,
           title: {
             text: 'Total Wattz'
           },

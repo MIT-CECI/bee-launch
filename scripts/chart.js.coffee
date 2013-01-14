@@ -50,6 +50,7 @@ window.LoadProfile = class LoadProfile
           text: 'Test Chamber Hours'
         categories: (=> "#{hour}:00" for hour in [0..@lab.length])()
       yAxis:
+        max: 500
         title:
           text: 'Total Wattz'
         stackedLabels:
