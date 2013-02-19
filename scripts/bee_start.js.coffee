@@ -74,7 +74,7 @@ class Lab
 
 app =
   setup: ->
-    @lab = new Lab(24) # Max lab lenght
+    @lab = new Lab(168) # Max lab lenght
     @_drawGraph()
     @_setupListeners()
     @_prepareLaunch()

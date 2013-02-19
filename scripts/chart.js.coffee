@@ -37,7 +37,7 @@ window.LoadProfile = class LoadProfile
         padding: 0
         title:
           text: 'Test Chamber Hours'
-        categories: (=> "#{hour}:00" for hour in [0..@lab.length])()
+        categories: (=> "#{hour % 24}:00" for hour in [0..@lab.length])()
       yAxis:
         max: 500
         title:

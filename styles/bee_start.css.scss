@@ -46,9 +46,16 @@ nav{
 
 input[type=radio], #btnGo { display: none; }
 
-#chart-container{
+#holder{
   width: 90%;
   margin: 0 auto;
+  overflow-x: auto;
+  position: relative;
+}
+
+#chart-container{
+  margin: 0 auto;
+  width: 6720px;
 }
 
 .load-table{
