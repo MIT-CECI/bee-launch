@@ -63,7 +63,7 @@
             var hour, _i, _ref, _results;
             _results = [];
             for (hour = _i = 0, _ref = _this.lab.length; 0 <= _ref ? _i <= _ref : _i >= _ref; hour = 0 <= _ref ? ++_i : --_i) {
-              _results.push("" + hour + ":00");
+              _results.push("" + (hour % 24) + ":00");
             }
             return _results;
           })()

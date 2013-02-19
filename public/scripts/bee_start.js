@@ -74,7 +74,7 @@
 
   app = {
     setup: function() {
-      this.lab = new Lab(24);
+      this.lab = new Lab(168);
       this._drawGraph();
       this._setupListeners();
       return this._prepareLaunch();
