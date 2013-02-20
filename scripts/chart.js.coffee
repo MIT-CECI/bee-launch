@@ -17,8 +17,6 @@ window.LoadProfile = class LoadProfile
 
 
   buildGraph: ->
-    labWidth = 900
-    # xAxisLabelOffset = parseInt(labWidth / @lab.lenght) / 2
     @chart = new Highcharts.Chart
       chart:
         showAxes: true
@@ -38,7 +36,7 @@ window.LoadProfile = class LoadProfile
         padding: 0
         title:
           text: 'Test Chamber Hours'
-        categories: (=> "#{hour % 24}:00" for hour in [0..@lab.length])()
+        categories: (=> Highcharts.dateFormat("Day %d, %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)) for hour in [0..@lab.length])()
       yAxis:
         max: 500
         title:

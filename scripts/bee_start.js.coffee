@@ -76,7 +76,7 @@ class Lab
 
 window.app =
   setup: ->
-    window.labLength ?= 24
+    window.labLength ?= 48
     @lab = new Lab(window.labLength) # Max lab lenght
     $("#chart-container").css("width", window.labLength * 42)
     @_drawGraph()
