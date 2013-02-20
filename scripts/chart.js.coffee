@@ -21,6 +21,7 @@ window.LoadProfile = class LoadProfile
     # xAxisLabelOffset = parseInt(labWidth / @lab.lenght) / 2
     @chart = new Highcharts.Chart
       chart:
+        showAxes: true
         renderTo: 'chart-container'
         type: 'column'
         events:

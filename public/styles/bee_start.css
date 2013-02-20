@@ -39,8 +39,7 @@ input[type=radio], #btnGo {
   position: relative; }
 
 #chart-container {
-  margin: 0 auto;
-  width: 6720px; }
+  margin: 0 auto; }
 
 .load-table {
   margin-top: 15px; }

@@ -37,6 +37,7 @@
       labWidth = 900;
       return this.chart = new Highcharts.Chart({
         chart: {
+          showAxes: true,
           renderTo: 'chart-container',
           type: 'column',
           events: {

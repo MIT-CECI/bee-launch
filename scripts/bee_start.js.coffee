@@ -53,6 +53,8 @@ class Lab
   # Builds a `@maxLength` * 4 matrix that will hold what loads are on
   # at a specific time.
   #
+  # The @profile[i] represents the loads that are turned on at time i
+  #
   # Returns the matrix
   _buildProfile: -> @profile = ([0,0,0,0] for [1..@length])
 
@@ -72,9 +74,11 @@ class Lab
 # End of Lab Class ------------------------------------------------------------
 
 
-app =
+window.app =
   setup: ->
-    @lab = new Lab(168) # Max lab lenght
+    window.labLength ?= 24
+    @lab = new Lab(window.labLength) # Max lab lenght
+    $("#chart-container").css("width", window.labLength * 42)
     @_drawGraph()
     @_setupListeners()
     @_prepareLaunch()
@@ -124,5 +128,3 @@ app =
 
 jQuery ($) ->
   app.setup()
-
-

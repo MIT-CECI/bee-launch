@@ -1,5 +1,5 @@
 (function() {
-  var Lab, app;
+  var Lab;
 
   window.BEE = {
     activeLoad: -1,
@@ -72,9 +72,14 @@
 
   })();
 
-  app = {
+  window.app = {
     setup: function() {
-      this.lab = new Lab(168);
+      var _ref;
+      if ((_ref = window.labLength) == null) {
+        window.labLength = 24;
+      }
+      this.lab = new Lab(window.labLength);
+      $("#chart-container").css("width", window.labLength * 42);
       this._drawGraph();
       this._setupListeners();
       return this._prepareLaunch();
