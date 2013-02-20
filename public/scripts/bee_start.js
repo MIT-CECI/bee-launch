@@ -76,13 +76,14 @@
     setup: function() {
       var _ref;
       if ((_ref = window.labLength) == null) {
-        window.labLength = 48;
+        window.labLength = 72;
       }
       this.lab = new Lab(window.labLength);
       $("#chart-container").css("width", window.labLength * 42);
       this._drawGraph();
       this._setupListeners();
-      return this._prepareLaunch();
+      this._prepareLaunch();
+      return this._moveGraphElements();
     },
     setCurrentLoad: function(event) {
       var loadIndex, myLabel;
@@ -106,6 +107,28 @@
       $("#hdnProfile").val(launchString);
       return $("#btnGo").click();
     },
+    _moveGraphElements: function() {
+      var css, holder, svg;
+      holder = $("#holder");
+      if (holder.find(".highcharts-legend").length > 0) {
+        svg = $('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="27"></svg>');
+        css = {
+          display: "block",
+          width: "300px",
+          margin: "10px auto"
+        };
+        $(".legend").html(svg.css(css).append($(".highcharts-legend")));
+      }
+      return this._moveLegend();
+    },
+    _moveLegend: function() {
+      var css;
+      css = {
+        margin: '10px auto',
+        width: '250px'
+      };
+      return $(".highcharts-legend").attr("transform", "").css(css);
+    },
     _prepareLaunch: function() {
       if (window.launchPad != null) {
         window.launchPad = null;
@@ -119,6 +142,10 @@
       return window.chart = new LoadProfile(this.lab);
     },
     _setupListeners: function() {
+      var _this = this;
+      $(window).resize(function() {
+        return _this._moveGraphElements();
+      });
       $('body').on('change', '.js-add-load', this.setCurrentLoad);
       $('body').on('click', 'label.button.active', this.removeCurrentLoad);
       return $('body').on('click', '#js-launch-experiment', this.launchLab);

@@ -46,7 +46,7 @@
           }
         },
         title: {
-          text: 'Load Profiles'
+          text: '  '
         },
         tooltip: {
           enabled: false
@@ -62,7 +62,7 @@
             var hour, _i, _ref, _results;
             _results = [];
             for (hour = _i = 0, _ref = _this.lab.length; 0 <= _ref ? _i <= _ref : _i >= _ref; hour = 0 <= _ref ? ++_i : --_i) {
-              _results.push(Highcharts.dateFormat("Day %d, %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)));
+              _results.push(Highcharts.dateFormat("%e %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)));
             }
             return _results;
           })()
