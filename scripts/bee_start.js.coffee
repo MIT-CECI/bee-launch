@@ -76,12 +76,13 @@ class Lab
 
 window.app =
   setup: ->
-    window.labLength ?= 48
+    window.labLength ?= 72
     @lab = new Lab(window.labLength) # Max lab lenght
     $("#chart-container").css("width", window.labLength * 42)
     @_drawGraph()
     @_setupListeners()
     @_prepareLaunch()
+    @_moveGraphElements()
 
   # jQuery Listener
   # This will set the `window.currentLoad` to the one pointed by the radio
@@ -112,6 +113,25 @@ window.app =
     $("#hdnProfile").val(launchString)
     $("#btnGo").click() # Use the C# button
 
+  _moveGraphElements: ->
+    holder = $("#holder")
+    if holder.find(".highcharts-legend").length > 0
+      svg = $('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="27"></svg>')
+      css = {
+        display: "block"
+        width: "300px"
+        margin: "10px auto"
+      }
+      $(".legend").html svg.css(css).append $(".highcharts-legend")
+    @_moveLegend()
+
+  _moveLegend: ->
+    css = {
+      margin: '10px auto'
+      width: '250px'
+    }
+    $(".highcharts-legend").attr("transform", "").css(css)
+
   _prepareLaunch: ->
     window.launchPad = null if window.launchPad?
     window.launchPad = new LaunchPad(@lab)
@@ -121,6 +141,7 @@ window.app =
     window.chart = new LoadProfile(@lab)
 
   _setupListeners: ->
+    $(window).resize( => @_moveGraphElements() )
     $('body').on 'change', '.js-add-load',        @setCurrentLoad
     $('body').on 'click',  'label.button.active', @removeCurrentLoad
 

@@ -27,7 +27,7 @@ window.LoadProfile = class LoadProfile
             @addToCurrentLoad(event.xAxis[0].value)
             false
       title:
-        text: 'Load Profiles'
+        text: '  '
       tooltip:
         enabled: false
       xAxis:
@@ -36,7 +36,7 @@ window.LoadProfile = class LoadProfile
         padding: 0
         title:
           text: 'Test Chamber Hours'
-        categories: (=> Highcharts.dateFormat("Day %d, %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)) for hour in [0..@lab.length])()
+        categories: (=> Highcharts.dateFormat("%e %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)) for hour in [0..@lab.length])()
       yAxis:
         max: 500
         title:
