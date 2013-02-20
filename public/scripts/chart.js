@@ -32,9 +32,7 @@
     };
 
     LoadProfile.prototype.buildGraph = function() {
-      var labWidth,
-        _this = this;
-      labWidth = 900;
+      var _this = this;
       return this.chart = new Highcharts.Chart({
         chart: {
           showAxes: true,
@@ -64,7 +62,7 @@
             var hour, _i, _ref, _results;
             _results = [];
             for (hour = _i = 0, _ref = _this.lab.length; 0 <= _ref ? _i <= _ref : _i >= _ref; hour = 0 <= _ref ? ++_i : --_i) {
-              _results.push("" + (hour % 24) + ":00");
+              _results.push(Highcharts.dateFormat("Day %d, %H:%M", Date.UTC(2013, 1, (hour / 24) + 1, hour % 24)));
             }
             return _results;
           })()

@@ -76,7 +76,7 @@
     setup: function() {
       var _ref;
       if ((_ref = window.labLength) == null) {
-        window.labLength = 24;
+        window.labLength = 48;
       }
       this.lab = new Lab(window.labLength);
       $("#chart-container").css("width", window.labLength * 42);
